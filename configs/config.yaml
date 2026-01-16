@@ -1,0 +1,50 @@
+# Configuration for Remote Sensing Change Detection
+
+# Model configuration
+model:
+  backbone: 'resnet18'  # Options: resnet18, resnet34, resnet50
+  pretrained: true
+  num_classes: 2
+
+# Dataset configuration
+dataset:
+  name: 'LEVIR-CD'  # Options: LEVIR-CD, WHU-CD, RSCD
+  root: './data/LEVIR-CD'
+  crop_size: 256
+
+# Training configuration
+training:
+  batch_size: 8
+  num_workers: 4
+  epochs: 100
+  
+  # Optimizer
+  optimizer: 'adam'  # Options: adam, sgd, adamw
+  lr: 0.001
+  weight_decay: 0.0001
+  
+  # Learning rate scheduler
+  scheduler: 'step'  # Options: step, cosine, plateau
+  lr_decay_step: 30
+  lr_decay_gamma: 0.1
+  
+  # Loss function
+  loss: 'combined'  # Options: ce, dice, focal, combined
+  
+  # Checkpointing
+  save_freq: 10
+  checkpoint_dir: './checkpoints'
+  
+  # Resume training
+  resume: null  # Path to checkpoint to resume from
+
+# Evaluation configuration
+evaluation:
+  batch_size: 1
+  checkpoint: null  # Path to checkpoint for evaluation
+  output_dir: './results'
+  save_predictions: true
+
+# Device configuration
+device: 'cuda'  # Options: cuda, cpu
+seed: 42
